@@ -25,7 +25,7 @@ def check_rounds():
 
 
 questions_wanted = 0
-choose_instructions = "Please choose rock(r), paper(p) or scissors(s)"
+choose_instructions = "Please choose which mths operstion you would like to test out "
 
 # Ask user for # of rounds, <enter> for infiniye mode 
 questions = check_rounds()
