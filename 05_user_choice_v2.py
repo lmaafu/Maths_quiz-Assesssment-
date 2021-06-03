@@ -56,7 +56,7 @@ user_choice = ""
 while user_choice != "xxx":
 
   # Ask user for choice and check it's valid 
-  user_choice = choice_checker("Choose addition / division / subtraction /multiplication (+, / , -, *):", maths_list, "Please choose from addition / division / subtraction /multiplication (or xxx to quit)")
+  user_choice = choice_checker("Choose addition / division / subtraction /multiplication (+, / , -, *): ", maths_list, "Please choose from addition / division / subtraction /multiplication (or xxx to quit)")
 
   #print out choice for comparison purposes 
   print()
