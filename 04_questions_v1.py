@@ -1,59 +1,36 @@
-# Function used to check input is valid
+def int_check(question, low=None, high=None): 
 
+  situation = ""
 
-def check_rounds():
- while True:
-   response = input("How many question would you like: ") 
+  if low is not None and high is not None: 
+    situation = "both"
+  elif low is not None and high is None:
+    situation = "low only "
 
-   rounds_error = "Please type either <enter> or an integer that is more than 0"
-   if response != "":
-      try:
-        response = int(response)
+  while True:
 
-        if response < 1:
-          print(rounds_error)
-          continue 
+    try:
+        response = int(input(question))
 
-      except ValueError:
-        print(rounds_error)
-        continue
+        # checks input is not too high or
+        # too low if a both upper and lower bounds 
+        # are specified 
+        if situation == "both":
+          if response < low or response > high:
+            print("Please enter a number between {} and {}".format(low, high))
+            continue
 
-      return response 
+        # checks input is not too low 
+        elif situation == "low only ":
+          if response < low:
+              print("Please enter a number that is more than (or equal to) {}".format(low))
+              continue
 
+        return response 
 
-# Main routine goes here .....
+    # Checks iput is integer 
+    except ValueError:
+      print("Please enter an integer")
+      continue
 
-
-questions_wanted = 0
-choose_instructions = "Please choose which mths operstion you would like to test out "
-
-# Ask user for # of rounds, <enter> for infiniye mode 
-questions = check_rounds()
-
-
-end_game = "no"
-while end_game == "no":
-
-    # Rounds Heading 
-    print()
-    if questions == "":
-      heading = "Continuous Mode: Round {}".format(questions_wanted)
-      print(heading)
-      choose = input ("{} or'xxx' to end: ".format(choose_instructions))
-      if choose == "xxx":
-            break
-    else:
-        heading = "Round {} of {}".format(questions_wanted + 1, questions)
-    print(heading)
-    choose = input(choose_instructions)
-    if questions_wanted == questions - 1:
-      end_game ="yes"
-
-
-    # rest of loop / game
-print("You chose {}".format(choose))
-
-questions_wanted += 1
-
-print("Thank you for playing")
 
