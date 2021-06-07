@@ -87,45 +87,59 @@ def statement_generator(statement, decoration):
     return ""
 
 # integer Checker 
-def int_check(question, low=None, high=None): 
+def int_check(question, low=None, high=None, exit_code=None):
 
-  situation = ""
+    valid = False
+    while not valid:
+        response = input(question).lower()
 
-  if low is not None and high is not None: 
-    situation = "both"
-  elif low is not None and high is None:
-    situation = "low only "
+        if exit_code == "xxx" and response == "xxx":
+            return response
+        elif exit_code == "" and response == "":
+            return response
 
-  while True:
+        situation = ""
 
-    try:
-        response = int(input(question))
+        if low is not None and high is not None:
+            situation = "both"
+        elif low is not None and high is None:
+            situation = "low only "
 
-        # checks input is not too high or
-        # too low if a both upper and lower bounds 
-        # are specified 
-        if situation == "both":
-          if response < low or response > high:
-            print("Please enter a number between {} and {}".format(low, high))
+        try:
+            response = int(response)
+
+            # are specified
+            if situation == "both":
+                if response < low or response > high:
+                    print("Please enter a number between {} and {}".format(
+                        low, high))
+                    continue
+
+            # checks input is not too low
+            elif situation == "low only ":
+                if response < low:
+                    print(
+                        "Plese enter a number that is more than (or equal to) {}"
+                        .format(low))
+                    continue
+
+            return response
+
+        # Checks iput is integer
+        except ValueError:
+            print("Please enter an integer")
             continue
-
-        # checks input is not too low 
-        elif situation == "low only ":
-          if response < low:
-              print("Please enter a number that is more than (or equal to) {}".format(low))
-              continue
-
-        return response 
-
-    # Checks iput is integer 
-    except ValueError:
-      print("Please enter an integer")
-      continue
 
       
 # Main routine .....
+
+rounds_played = 0
+
+
 # list for checking responses 
 maths_list = ["addition", "multiplication", "subtraction", "division", "xxx"]
+# Ask user choice and check it's valid
+user_choice = choice_checker("Choose addition / division / subtraction /multiplication (+, / , -, *): ", maths_list, "Please choose from addition / division / subtraction /multiplication (or xxx to quit)")
 
 # If the user wants to see instrutions of hoe tyo play the game 
 played_before= yes_no("Would like to display instructions? ")
@@ -135,12 +149,18 @@ if played_before == "yes":
 print()
 print("Programe continues")
 
-# Set up the gam parameters (range, number of numbers)
-low = int(input("Low Number: "))
+# Game History
+game_summary = [] 
+# list
+scores =[]
+
+
+# Set up the game parameters (range, number of numbers)
+low = int_check("Low Number: ") # checks for the low number 
 print()
-high = int(input(" High Number: "))
+high = int_check(" High Number: ", low + 1) # checks for the high number
 print()
-rounds = int(input(" Rounds: "))
+rounds = int_check(" Rounds: ", 0, exit_code="") # 
 
 # works out nmber of guesses 
 num_range = high - low + 1
@@ -157,41 +177,65 @@ rounds_won = 0
 rounds_played = rounds_won + rounds_lost 
 # Rounds Heading 
 rounds_played = 0
-choose_instructions = "Please choosed addition(+), subtraction(-), multiplication(*), or division(/) : "
+
 
 # Ask user for # of rounds, <enter> for infiniye mode 
-rounds = int_check()
+feedback = ""
 
-end_game = "no"
-while end_game == "no":
+end_game = "yes"
 
-    # Rounds Heading 
-    print()
-    if rounds == "":
-      heading = "Continuous Mode: Round {}".format(rounds_played + 1)
-      print(heading)
-      choose = input ("{} or'xxx' to end: ".format(choose_instructions))
-      if choose == "xxx":
-            break
-    else:
-        heading = "Round {} of {}".format(rounds_played + 1, rounds)
-        print(heading)
-        choose = input(choose_instructions)
-        if rounds_played == rounds + 1:
-          end_game ="yes"
+while end_game == "yes":
 
-        rounds_played += 1
+  if end_game == "no":
+    break
+
+  else:
+    if rounds == rounds_played:
+      break
+
+  # Rounds Heading 
+  print()
+  if rounds == "":
+    heading = "Continuous Mode: Round {}".format(rounds_played + 1)
+    print(heading)
+    choose = input ("{} or'xxx' to end: ".format(choice_checker))
+    if choose == "xxx":
+          break
+  else:
+    heading = "Round {} of {}".format(rounds_played + 1, rounds)
+    print(heading)
+    choose = input()
+    if rounds_played == rounds + 1:
+      end_game ="yes"
+
+  rounds_played += 1
+
+    # # Questions for each maths operation and round 
+    # question = random.choice()
+        
 
 
-    # rest of loop / game
-    if choose == "+":
-      choose = "addition"
-    if choose == "-":
-      choose = "subtraction"
-    if choose == "*":
-      choose = "multiplication"
-    if choose == "/":
-      choose = "division"
+  # rest of loop / game
+  if choose == "+":
+    choose = "addition"
+  if choose == "-":
+    choose = "subtraction"
+  if choose == "*":
+    choose = "multiplication"
+  if choose == "/":
+    choose = "division"
+
+  # End game if exit code is typed 
+  if choose == "xxx":
+        break 
+        
+  if rounds == rounds_played: 
+    break 
+
+      # Compare choices 
+
+
+
 print("You chose {}".format(choose))
 
 
