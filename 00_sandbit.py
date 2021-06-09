@@ -1,4 +1,7 @@
-question = "20 * 4"
+import math 
+import random 
+
+question = ""
 answer = eval(question)
 print(question)
 print(answer)
