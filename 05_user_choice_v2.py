@@ -25,13 +25,9 @@ def choice_checker(question, valid_list, error):
       response = "division"
     return response
 
-# check foe exit code
+  # check foe exit code
   elif response == "xxx":
             return response
-  else:
-      print()
-
-  
 
   # iterstes through list and if resonse is an item
   # in the list (or the first leter of an item), the 

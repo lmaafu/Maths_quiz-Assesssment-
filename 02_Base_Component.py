@@ -2,7 +2,31 @@
 import random
 
 # Functions goes here 
-# Choices the user can choose from for ther quiz 
+# this checks for te number of question and makes sure that the user entered an integer 
+def check_rounds():
+  while True: 
+    print()
+    response = input("How many rounds?: ")
+
+    rounds_error = "Please type either <enter> or an integer that is more than 0"
+    if response != "":
+      try:
+        response = int(response)
+
+        if response <1:
+          print(rounds_error)
+          continue 
+
+        else:
+          return response
+
+      except ValueError:
+        print(rounds_error)
+        continue
+
+    return response 
+
+# This gives the user valid responses and also has an error statement if the user doesnt use it correctly 
 def choice_checker(question, valid_list, error):
 
   # Ask user for choice (and put choice in lower case)
@@ -27,13 +51,9 @@ def choice_checker(question, valid_list, error):
       response = "division"
     return response
 
-# check foe exit code
+  # check foe exit code
   elif response == "xxx":
             return response
-  else:
-      print()
-
-  
 
   # iterstes through list and if resonse is an item
   # in the list (or the first leter of an item), the 
@@ -92,12 +112,9 @@ def instructions ():
     print()
     print("GOOD LUCK!!!")
 
-
-
-
-
     return""
 
+# This decorates the sides and top of headings 
 def statement_generator(statement, decoration):
 
     sides = decoration * 3
@@ -157,12 +174,7 @@ def int_check(question, low=None, high=None, exit_code=None):
 
       
 # Main routine .....
-rounds_played = 0
-# list for checking responses 
-maths_list = ["addition", "multiplication", "subtraction", "division", "xxx"]
-# Ask user choice and check it's valid
-user_choice = choice_checker("Choose addition / division / subtraction /multiplication (+, / , -, *): ", maths_list, "Please choose from addition / division / subtraction /multiplication (or xxx to quit)")
-print()
+
 
 # If the user wants to see instrutions of hoe tyo play the game 
 played_before = yes_no("Would like to display instructions? ")
@@ -170,16 +182,19 @@ played_before = yes_no("Would like to display instructions? ")
 if played_before == "yes":
     instructions()
 print()
+
+# list for checking responses 
+maths_list = ["addition", "multiplication", "subtraction", "division", "xxx"]
+# Ask user choice and check it's valid
+user_choice = choice_checker("Choose addition / division / subtraction /multiplication (+, / , -, *): ", maths_list, "Please choose from addition / division / subtraction /multiplication (or xxx to quit)")
+  
+print()
+
 # Game History
 game_summary = [] 
-# list
-scores =[]
+# asking for the number of questios 
+rounds = int_check(" How many questions would you like  : ", 0, exit_code="") 
 
-rounds = int_check(" How many questions would you like  : ", 0, exit_code="") # 
-
-rounds_lost = 0
-rounds_won = 0  
-rounds_played = rounds_won + rounds_lost 
 # Rounds Heading 
 rounds_played = 0
 
@@ -200,6 +215,7 @@ while end_game == "yes":
 
   # Rounds Heading 
   print()
+  # Continious Mode 
   if rounds == "":
     heading = "Continuous Mode: Question {}".format(rounds_played + 1)
     print(heading)
@@ -216,12 +232,12 @@ while end_game == "yes":
 
     rounds_played += 1
 
-    # Questions for each maths operation and round 
-    num_1 = random.randint(1,20)
-    num_2 = random.randint(1,20)
+  # Questions for each maths operation and round 
+  num_1 = random.randint(1,20)
+  num_2 = random.randint(1,20)
 
-    print (num_1, user_choice, num_2)
-              
+  print(num_1, user_choice, num_2)
+         
 
 
   # End game if exit code is typed 
