@@ -1,4 +1,4 @@
-import math
+
 import random
 
 # Functions goes here 
@@ -69,8 +69,30 @@ def instructions ():
     print()
     print(" **** Instructions  **** ")
     print()
-    print(" rules go here ")
+    print(" In this quiz we would first ask you which maths operation you would like the use : ")
     print()
+    print("-Addition")
+    print("-Subtraction")
+    print("-Multiplication")
+    print("-Division")
+    print()
+    print("Then the game will ask for the number of questions you would like ") 
+    print("The Game will then give various questions depending on the amount of questions you want and the which maths operation you would like to use ")
+    print()
+    print("PLEASE KNOW THAT THE NUMBERS THAT ARE GIVEN ARE RANDOM AND FROM A RANGE FROM 1 - 20 ")
+    print()
+    print("After each of your asnwers the game will let you know if you had either correct or wrong  ")
+    print()
+    print("At the end of the game it will show you  your results")
+    print()
+    print("This game will help test out your knowledge if not then improve it ")
+    print()
+    print("HAVE FUN!!!")
+
+
+
+
+
     return""
 
 def statement_generator(statement, decoration):
@@ -136,6 +158,7 @@ def int_check(question, low=None, high=None, exit_code=None):
 rounds_played = 0
 
 
+
 # list for checking responses 
 maths_list = ["addition", "multiplication", "subtraction", "division", "xxx"]
 # Ask user choice and check it's valid
@@ -154,23 +177,7 @@ game_summary = []
 # list
 scores =[]
 
-
-# Set up the game parameters (range, number of numbers)
-low = int_check("Low Number: ") # checks for the low number 
-print()
-high = int_check(" High Number: ", low + 1) # checks for the high number
-print()
-rounds = int_check(" Rounds: ", 0, exit_code="") # 
-
-# works out nmber of guesses 
-num_range = high - low + 1
-max_raw = math.log2(num_range)  # finds maximum # of guesses using math.log2
-max_upped = math.ceil(max_raw)  # rounds up (ceil----> ceiling )
-max_guesses = max_upped + 1
-
-print("Max Guesses: {}".format(max_guesses ))
-print()
-# Rounds
+rounds = int_check(" How many questions would you like  : ", 0, exit_code="") # 
 
 rounds_lost = 0
 rounds_won = 0  
@@ -196,13 +203,13 @@ while end_game == "yes":
   # Rounds Heading 
   print()
   if rounds == "":
-    heading = "Continuous Mode: Round {}".format(rounds_played + 1)
+    heading = "Continuous Mode: Question {}".format(rounds_played + 1)
     print(heading)
     choose = input ("{} or'xxx' to end: ".format(choice_checker))
     if choose == "xxx":
           break
   else:
-    heading = "Round {} of {}".format(rounds_played + 1, rounds)
+    heading = "Question {}".format(rounds_played + 1)
     print(heading)
     choose = input()
     if rounds_played == rounds + 1:
@@ -234,9 +241,6 @@ while end_game == "yes":
 
       # Compare choices 
 
-
-
-print("You chose {}".format(choose))
 
 
 
