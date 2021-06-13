@@ -32,23 +32,21 @@ def choice_checker(question, valid_list, error):
   # Ask user for choice (and put choice in lower case)
   response = input(question).lower()
 
+  error = "Please choose from addition / division / subtraction /multiplication (or xxx to quit)"
+
   if response == "+" or response == "addition":
-    if response == "+":
-      response = "addition"
-    return response
+    response = "+"
+    return response 
   elif response == "-" or response == "subtraction":
-    if response == "-":
-      response = "subtraction"
+    response = "-"
     return response
 
   elif response == "*" or response == "multiplication":
-    if response == "*":
-      response = "multiplication"
+    response = "*"
     return response
-          
+
   elif response == "/" or response == "division":
-    if response == "/":
-      response = "division"
+    response = "/"
     return response
 
   # check foe exit code
@@ -60,8 +58,8 @@ def choice_checker(question, valid_list, error):
   # full item name is returned
 
   for item in valid_list:
-      if response == item[0] or response == item:
-          return item
+    if response == item[0] or response == item:
+      return item
 
   # output error if item not in list 
   print(error)
@@ -188,14 +186,16 @@ maths_list = ["addition", "multiplication", "subtraction", "division", "xxx"]
 # Ask user choice and check it's valid
 user_choice = choice_checker("Choose addition / division / subtraction /multiplication (+, / , -, *): ", maths_list, "Please choose from addition / division / subtraction /multiplication (or xxx to quit)")
   
-print()
 
 # Game History
 game_summary = [] 
 # asking for the number of questios 
 rounds = int_check(" How many questions would you like  : ", 0, exit_code="") 
 
-# Rounds Heading 
+ 
+# Rounds
+rounds_lost = 0
+rounds_won = 0
 rounds_played = 0
 
 
@@ -218,17 +218,22 @@ while end_game == "yes":
   # Continious Mode 
   if rounds == "":
     heading = "Continuous Mode: Question {}".format(rounds_played + 1)
-    print(heading)
-    choose = input ("{} or'xxx' to end: ".format(choice_checker))
-    if choose == "xxx":
-          break
+    #print(heading)
+    # puts stars above / below heading to make it stand out
+    heading_decoration = "*"
+    statement_generator(heading, heading_decoration)
+    # choose = input ("{} or'xxx' to end: ".format(choice_checker))
+    # if choose == "xxx":
+    #       break
   else:
     print()
     heading = "Question {}".format(rounds_played + 1)
     print(heading)
-    choose = input()
     if rounds_played == rounds + 1:
       end_game ="yes"
+      # puts stars above / below heading to make it stand out
+      heading_decoration = "*"
+      statement_generator(heading, heading_decoration)
 
     rounds_played += 1
 
@@ -236,20 +241,28 @@ while end_game == "yes":
   num_1 = random.randint(1,20)
   num_2 = random.randint(1,20)
 
-  print(num_1, user_choice, num_2)
-         
+  # generating the question
+  question = "{} {} {}  ".format( num_1, user_choice, num_2  )
+  print(question)
+
+  # Answers 
+  result = int(input(" = "))
+  print()
+  answer  = eval(question)
+  # Incorrect or correct
+  if result != answer:
+    feedback = "INCORRECT"
+    rounds_lost += 1
+    print(feedback)
+  else:
+    if result == answer:
+      feedback = "CORRECT" 
+      rounds_won += 1
+      print(feedback)
+
+  
 
 
-  # End game if exit code is typed 
-  if choose == "xxx":
-        break 
-        
-  if rounds == rounds_played: 
-    break 
-
-      # Compare choices 
 
 
 
-
-print("Thank you for playing")
