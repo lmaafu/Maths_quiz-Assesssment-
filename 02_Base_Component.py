@@ -32,7 +32,7 @@ def choice_checker(question, valid_list, error):
   # Ask user for choice (and put choice in lower case)
   response = input(question).lower()
 
-  error = "Please choose from addition / division / subtraction /multiplication (or xxx to quit)"
+  error = "Please choose from addition / division / subtraction /multiplication (or xxx to quit) : "
 
   if response == "+" or response == "addition":
     response = "+"
@@ -49,21 +49,18 @@ def choice_checker(question, valid_list, error):
     response = "/"
     return response
 
-  # check foe exit code
+  # check for exit code
   elif response == "xxx":
             return response
 
-  # iterstes through list and if resonse is an item
-  # in the list (or the first leter of an item), the 
-  # full item name is returned
+  # Error statement 
+  if response == "":
+    print(error)
+    return response
 
-  for item in valid_list:
-    if response == item[0] or response == item:
-      return item
+      
 
-  # output error if item not in list 
-  print(error)
-  print()
+
 
 # This checks if the user answered the question with yes or no 
 def yes_no(question):
@@ -218,22 +215,20 @@ while end_game == "yes":
   # Continious Mode 
   if rounds == "":
     heading = "Continuous Mode: Question {}".format(rounds_played + 1)
-    #print(heading)
     # puts stars above / below heading to make it stand out
     heading_decoration = "*"
     statement_generator(heading, heading_decoration)
-    # choose = input ("{} or'xxx' to end: ".format(choice_checker))
-    # if choose == "xxx":
-    #       break
+    
+    rounds_played += 1
+
   else:
     print()
     heading = "Question {}".format(rounds_played + 1)
-    print(heading)
     if rounds_played == rounds + 1:
       end_game ="yes"
-      # puts stars above / below heading to make it stand out
-      heading_decoration = "*"
-      statement_generator(heading, heading_decoration)
+    # puts stars above / below heading to make it stand out
+    heading_decoration = "*"
+    statement_generator(heading, heading_decoration)
 
     rounds_played += 1
 
@@ -242,23 +237,47 @@ while end_game == "yes":
   num_2 = random.randint(1,20)
 
   # generating the question
+  print("What is... ")
   question = "{} {} {}  ".format( num_1, user_choice, num_2  )
   print(question)
+  
 
   # Answers 
-  result = int(input(" = "))
-  print()
+  result = int(input("Answer:  "))
   answer  = eval(question)
   # Incorrect or correct
   if result != answer:
-    feedback = "INCORRECT"
-    rounds_lost += 1
-    print(feedback)
-  else:
-    if result == answer:
+      feedback = "INCORRECT"
+      rounds_lost += 1
+      print(feedback)
+      print("The correct answer was {}".format(answer))
+  elif result == answer:
       feedback = "CORRECT" 
       rounds_won += 1
       print(feedback)
+
+print()
+print("CORRECT: {}, INCORRECT: {}".format(rounds_won, rounds_lost,))
+
+
+#  **** Calculate Game Stats *****
+percent_win = rounds_won / rounds_played * 100
+percent_lose = rounds_lost / rounds_played * 100
+
+# Game History
+print()
+print("***** Game Score *******")
+for game in game_summary:
+  print(game)
+  print()
+
+# display game stats with % values to the nearest whole number
+print("***** Game Statistics *******")
+print("Correct: {} ({:.0f}%)\n Incorrect: {} ({:.0f}%)\n ".format(rounds_won, percent_win, rounds_lost, percent_lose, ))
+
+print("Hope you enjoyed the game")
+
+  
 
   
 
