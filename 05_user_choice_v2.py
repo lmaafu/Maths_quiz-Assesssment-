@@ -5,6 +5,7 @@ def choice_checker(question, valid_list, error):
 
   # Ask user for choice (and put choice in lower case)
   response = input(question).lower()
+  
 
   if response == "+" or response == "addition":
     if response == "+":

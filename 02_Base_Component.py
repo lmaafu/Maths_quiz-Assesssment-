@@ -147,7 +147,7 @@ def int_check(question, low=None, high=None, exit_code=None):
 
             # are specified
             if situation == "both":
-                if response < low or response > high:
+                if response < 20 or response > 0:
                     print("Please enter a number between {} and {}".format(
                         low, high))
                     continue
@@ -171,6 +171,7 @@ def int_check(question, low=None, high=None, exit_code=None):
 # Main routine .....
 
 
+
 # If the user wants to see instrutions of hoe tyo play the game 
 played_before = yes_no("Would like to display instructions? ")
 
@@ -178,15 +179,18 @@ if played_before == "yes":
     instructions()
 print()
 
+# Game History
+game_summary = [] 
+
 # list for checking responses 
 maths_list = ["addition", "multiplication", "subtraction", "division", "xxx"]
 # Ask user choice and check it's valid
 user_choice = choice_checker("Choose addition / division / subtraction /multiplication (+, / , -, *): ", maths_list, "Please choose from addition / division / subtraction /multiplication (or xxx to quit)")
   
 
-# Game History
-game_summary = [] 
+
 # asking for the number of questios 
+
 rounds = int_check(" How many questions would you like  : ", 0, exit_code="") 
 
  
@@ -209,7 +213,7 @@ while end_game == "yes":
   else:
     if rounds == rounds_played:
       break
-
+  
   # Rounds Heading 
   print()
   # Continious Mode 
@@ -243,8 +247,9 @@ while end_game == "yes":
   
 
   # Answers 
-  result = int(input("Answer:  "))
+  result = int(input("Answer: "))
   answer  = eval(question)
+  
   # Incorrect or correct
   if result != answer:
       feedback = "INCORRECT"
@@ -255,6 +260,17 @@ while end_game == "yes":
       feedback = "CORRECT" 
       rounds_won += 1
       print(feedback)
+
+  # If exit_code is typed in this should break the loop
+  if result == "exit":
+    end_game = "no"
+    break
+
+
+
+
+
+
 
 print()
 print("CORRECT: {}, INCORRECT: {}".format(rounds_won, rounds_lost,))
