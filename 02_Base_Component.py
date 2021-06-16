@@ -147,7 +147,7 @@ def int_check(question, low=None, high=None, exit_code=None):
 
             # are specified
             if situation == "both":
-                if response < 20 or response > 0:
+                if response < low or response > high:
                     print("Please enter a number between {} and {}".format(
                         low, high))
                     continue
@@ -167,10 +167,7 @@ def int_check(question, low=None, high=None, exit_code=None):
             print("Please enter an integer")
             continue
 
-      
-# Main routine .....
-
-
+# Main routine ...
 
 # If the user wants to see instrutions of hoe tyo play the game 
 played_before = yes_no("Would like to display instructions? ")
@@ -187,7 +184,8 @@ maths_list = ["addition", "multiplication", "subtraction", "division", "xxx"]
 # Ask user choice and check it's valid
 user_choice = choice_checker("Choose addition / division / subtraction /multiplication (+, / , -, *): ", maths_list, "Please choose from addition / division / subtraction /multiplication (or xxx to quit)")
   
-
+# Game History
+game_summary = [] 
 
 # asking for the number of questios 
 
@@ -203,11 +201,11 @@ rounds_played = 0
 # Ask user for # of rounds, <enter> for infiniye mode 
 feedback = ""
 
-end_game = "yes"
+keep_going = "yes"
 
-while end_game == "yes":
+while keep_going == "yes":
 
-  if end_game == "no":
+  if keep_going == "no":
     break
 
   else:
@@ -247,9 +245,8 @@ while end_game == "yes":
   
 
   # Answers 
-  result = int(input("Answer: "))
+  result  = int_check("Answer: ", exit_code="xxx") 
   answer  = eval(question)
-  
   # Incorrect or correct
   if result != answer:
       feedback = "INCORRECT"
@@ -258,19 +255,17 @@ while end_game == "yes":
       print("The correct answer was {}".format(answer))
   elif result == answer:
       feedback = "CORRECT" 
+      print("Well done you got it!")
       rounds_won += 1
       print(feedback)
 
   # If exit_code is typed in this should break the loop
-  if result == "exit":
-    end_game = "no"
-    break
-
-
-
-
-
-
+  if result == "xxx": 
+    keep_going = "no"
+    break 
+  # End Game statement_generator
+  round_result = "Round {},  ({}) ".format(rounds_played,  feedback)
+  game_summary.append(round_result)
 
 print()
 print("CORRECT: {}, INCORRECT: {}".format(rounds_won, rounds_lost,))
@@ -289,7 +284,7 @@ for game in game_summary:
 
 # display game stats with % values to the nearest whole number
 print("***** Game Statistics *******")
-print("Correct: {} ({:.0f}%)\n Incorrect: {} ({:.0f}%)\n ".format(rounds_won, percent_win, rounds_lost, percent_lose, ))
+print("Correct: {} ({:.0f}%)\nIncorrect: {} ({:.0f}%)\n ".format(rounds_won, percent_win, rounds_lost, percent_lose, ))
 
 print("Hope you enjoyed the game")
 
