@@ -213,6 +213,10 @@ while keep_going == "yes":
   
   # Answers 
   result  = int_check("Answer: ", exit_code="xxx") 
+  # If exit_code is typed in this should break the loop
+  if result == "xxx": 
+    keep_going = "no"
+    break 
   answer  = eval(question)
   # Incorrect or correct
   if result != answer:
@@ -226,10 +230,7 @@ while keep_going == "yes":
       rounds_won += 1
       print(feedback)
 
-  # If exit_code is typed in this should break the loop
-  if result == "xxx": 
-    keep_going = "no"
-    break 
+
   # End Game statement_generator
   round_result = "Round {},  ({}) ".format(rounds_played,  feedback)
   game_summary.append(round_result)
