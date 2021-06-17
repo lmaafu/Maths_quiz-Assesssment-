@@ -140,6 +140,7 @@ def int_check(question, low=None, high=None, exit_code=None):
             continue
 
 # Main routine ...
+
 # If the user wants to see instrutions of hoe tyo play the game 
 played_before = yes_no("Would like to display instructions? ")
 
@@ -202,9 +203,18 @@ while keep_going == "yes":
 
     rounds_played += 1
 
-  # Questions for each maths operation and round 
-  num_1 = random.randint(1,20)
-  num_2 = random.randint(1,20)
+  # Compare choices
+  if user_choice == "*":
+    num_1 = random.randint(1,5)
+    num_2 = random.randint(1,12)
+
+  if user_choice == "/":
+    num_1 = random.randint(1,12)
+    numm_2 = "{}".format(int_check)/num_1 
+
+  if user_choice == "+" or user_choice =="-": 
+    num_1 = random.randint(1,20)
+    num_2 = random.randint(1,20)
 
   # generating the question
   print("What is... ")

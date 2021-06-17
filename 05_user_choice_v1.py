@@ -32,6 +32,7 @@ def choice_checker(question):
 
 # Loop for testing purposes
 user_choice = ""
+print(choice_checker)
 while user_choice != "xxx":
 
     # Ask user choice and check it's valid
