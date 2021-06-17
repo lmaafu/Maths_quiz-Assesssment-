@@ -2,30 +2,6 @@
 import random
 
 # Functions goes here 
-# this checks for te number of question and makes sure that the user entered an integer 
-def check_rounds():
-  while True: 
-    print()
-    response = input("How many rounds?: ")
-
-    rounds_error = "Please type either <enter> or an integer that is more than 0"
-    if response != "":
-      try:
-        response = int(response)
-
-        if response <1:
-          print(rounds_error)
-          continue 
-
-        else:
-          return response
-
-      except ValueError:
-        print(rounds_error)
-        continue
-
-    return response 
-
 # This gives the user valid responses and also has an error statement if the user doesnt use it correctly 
 def choice_checker(question, valid_list, error):
 
@@ -57,10 +33,6 @@ def choice_checker(question, valid_list, error):
   if response == "":
     print(error)
     return response
-
-      
-
-
 
 # This checks if the user answered the question with yes or no 
 def yes_no(question):
@@ -168,7 +140,6 @@ def int_check(question, low=None, high=None, exit_code=None):
             continue
 
 # Main routine ...
-
 # If the user wants to see instrutions of hoe tyo play the game 
 played_before = yes_no("Would like to display instructions? ")
 
@@ -188,15 +159,12 @@ user_choice = choice_checker("Choose addition / division / subtraction /multipli
 game_summary = [] 
 
 # asking for the number of questios 
-
-rounds = int_check(" How many questions would you like  : ", 0, exit_code="") 
-
+rounds = int_check("How many questions would you like  : ", 0, exit_code="") 
  
 # Rounds
 rounds_lost = 0
 rounds_won = 0
 rounds_played = 0
-
 
 # Ask user for # of rounds, <enter> for infiniye mode 
 feedback = ""
@@ -229,7 +197,7 @@ while keep_going == "yes":
     if rounds_played == rounds + 1:
       end_game ="yes"
     # puts stars above / below heading to make it stand out
-    heading_decoration = "*"
+    heading_decoration = "|"
     statement_generator(heading, heading_decoration)
 
     rounds_played += 1
@@ -243,7 +211,6 @@ while keep_going == "yes":
   question = "{} {} {}  ".format( num_1, user_choice, num_2  )
   print(question)
   
-
   # Answers 
   result  = int_check("Answer: ", exit_code="xxx") 
   answer  = eval(question)
@@ -270,7 +237,6 @@ while keep_going == "yes":
 print()
 print("CORRECT: {}, INCORRECT: {}".format(rounds_won, rounds_lost,))
 
-
 #  **** Calculate Game Stats *****
 percent_win = rounds_won / rounds_played * 100
 percent_lose = rounds_lost / rounds_played * 100
@@ -287,12 +253,3 @@ print("***** Game Statistics *******")
 print("Correct: {} ({:.0f}%)\nIncorrect: {} ({:.0f}%)\n ".format(rounds_won, percent_win, rounds_lost, percent_lose, ))
 
 print("Hope you enjoyed the game")
-
-  
-
-  
-
-
-
-
-
