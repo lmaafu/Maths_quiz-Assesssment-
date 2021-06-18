@@ -59,10 +59,10 @@ def instructions ():
     print(" In this quiz we would first ask you which maths operation you would like the use. ")
     print()
     print("Here are your choices :-")
-    print("-Addition")
-    print("-Subtraction")
-    print("-Multiplication")
-    print("-Division")
+    print("-Addition (+)")
+    print("-Subtraction (-)")
+    print("-Multiplication (*)")
+    print("-Division (/)")
     print()
     print("Then the game will ask for the number of questions you would like ") 
     print("The Game will then give various questions depending on the amount of questions you want and the which maths operation you would like to use ")
@@ -205,13 +205,13 @@ while keep_going == "yes":
 
   # Compare choices
   if user_choice == "*":
-    num_1 = random.randint(1,5)
+    num_1 = random.randint(1,12)
     num_2 = random.randint(1,12)
 
   if user_choice == "/":
-    num_1 = random.randint(1,12)
-    numm_2 = "{}".format(int_check)/num_1 
-
+    num_1 = random.randint(1,60) 
+    num_2 = random.randint(1,5)
+    
   if user_choice == "+" or user_choice =="-": 
     num_1 = random.randint(1,20)
     num_2 = random.randint(1,20)
@@ -220,7 +220,6 @@ while keep_going == "yes":
   print("What is... ")
   question = "{} {} {}  ".format( num_1, user_choice, num_2  )
   print(question)
-  
   # Answers 
   result  = int_check("Answer: ", exit_code="xxx") 
   # If exit_code is typed in this should break the loop
@@ -239,7 +238,6 @@ while keep_going == "yes":
       print("Well done you got it!")
       rounds_won += 1
       print(feedback)
-
 
   # End Game statement_generator
   round_result = "Round {},  ({}) ".format(rounds_played,  feedback)
