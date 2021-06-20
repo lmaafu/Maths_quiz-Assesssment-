@@ -22,7 +22,7 @@ def choice_checker(question, valid_list, error):
     return response
 
   elif response == "/" or response == "division":
-    response = "/"
+    response = "//"
     return response
 
   # check for exit code
@@ -65,9 +65,7 @@ def instructions ():
     print("-Division (/)")
     print()
     print("Then the game will ask for the number of questions you would like ") 
-    print("The Game will then give various questions depending on the amount of questions you want and the which maths operation you would like to use ")
-    print()
-    print("PLEASE KNOW THAT THE NUMBERS THAT ARE GIVEN ARE RANDOM AND IS FROM A RANGE OF NUMBERS FROM 1 - 20 ")
+    print("The Game will then give various questions depending on the amount of questions you want and  which maths operation you would like to use ")
     print()
     print("If you want to end the game say 'xxx' and the game will end ")
     print()
@@ -77,7 +75,7 @@ def instructions ():
     print()
     print("This game will help test out your knowledge if not then improve it ")
     print()
-    print("GOOD LUCK!!!")
+    print(" GOOD LUCK ")
 
     return""
 
@@ -208,7 +206,7 @@ while keep_going == "yes":
     num_1 = random.randint(1,12)
     num_2 = random.randint(1,12)
 
-  if user_choice == "/":
+  if user_choice == "//":
     num_1 = random.randint(1,60) 
     num_2 = random.randint(1,5)
     
@@ -229,10 +227,10 @@ while keep_going == "yes":
   answer  = eval(question)
   # Incorrect or correct
   if result != answer:
-      feedback = "INCORRECT"
+      feedback = "INCORRECT, The correct answer was {}".format(answer)
       rounds_lost += 1
       print(feedback)
-      print("The correct answer was {}".format(answer))
+  
   elif result == answer:
       feedback = "CORRECT" 
       print("Well done you got it!")
@@ -240,11 +238,12 @@ while keep_going == "yes":
       print(feedback)
 
   # End Game statement_generator
-  round_result = "Round {},  ({}) ".format(rounds_played,  feedback)
+  round_result = "Question {}: {}= {}  ({}) ".format(rounds_played, question, result,  feedback)
   game_summary.append(round_result)
 
 print()
 print("CORRECT: {}, INCORRECT: {}".format(rounds_won, rounds_lost,))
+
 
 #  **** Calculate Game Stats *****
 percent_win = rounds_won / rounds_played * 100
@@ -252,7 +251,7 @@ percent_lose = rounds_lost / rounds_played * 100
 
 # Game History
 print()
-print("***** Game Score *******")
+print("***** Gmae History *******")
 for game in game_summary:
   print(game)
   print()
