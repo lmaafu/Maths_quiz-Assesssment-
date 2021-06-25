@@ -8,19 +8,18 @@ def choice_checker(question, valid_list, error):
   # Ask user for choice (and put choice in lower case)
   response = input(question).lower()
 
-  error = "Please choose from addition / division / subtraction /multiplication (or xxx to quit) : "
+  # iterstes through list and if resonse is an item
+  # in the list (or the first leter of an item), the 
+  # full item name is returned
 
+  for item in valid_list:
+      if response == item[0] or response == item:
+          return item
 
-
-  # check for exit code
-  if response == "xxx":
-    return response
-
-  # Error statement 
-  if response == "":
-    print(error)
-    return response
-
+  # output error if item not in list 
+  print(error)
+  print()
+  
 # This checks if the user answered the question with yes or no 
 def yes_no(question):
     valid = False
@@ -37,6 +36,8 @@ def yes_no(question):
         else:
             print("!!!!PLEASE ANSWER YES OR NO!!!!")
             print()
+
+    
 
 # Instructions for the user 
 def instructions ():
@@ -137,24 +138,8 @@ print()
 game_summary = [] 
 
 # list of maths operation the user can use 
-maths_list = ["addition", "multiplication", "subtraction", "division", "xxx"]
-# Ask user choice and check it's valid
-user_choice = choice_checker("Choose addition / division / subtraction /multiplication (+, / , -, *): ", maths_list, "Please choose from addition / division / subtraction /multiplication (or xxx to quit)")
+maths_list = ["addition", "+", "multiplication", "*", "subtraction", "-",  "division", "/",  "xxx"]
 
-print("operation from checker", user_choice)
-
-# choices for the user 
-if user_choice == "+" or user_choice == "addition":
-  user_choice = "+"
-elif user_choice == "-" or user_choice == "subtraction":
-  user_choice = "-"
-elif user_choice == "*" or user_choice == "multiplication":
-  user_choice = "*"
-elif user_choice == "/" or user_choice == "division":
-  user_choice = "//"
-
-
-print("updated operation", user_choice)
 
 # Game History
 game_summary = [] 
@@ -202,26 +187,52 @@ while keep_going == "yes":
 
     rounds_played += 1
 
+  # Ask user choice and check it's valid
+  user_choice = choice_checker("Choose addition / division / subtraction /multiplication (+, / , -, *): ", maths_list, "Please choose from addition / division / subtraction /multiplication (or xxx to quit)")
+
+  # choices for the user 
+  if user_choice == "+" or user_choice == "addition":
+    user_choice = "+"
+  elif user_choice == "-" or user_choice == "subtraction":
+    user_choice = "-"
+  elif user_choice == "*" or user_choice == "multiplication":
+    user_choice = "*"
+  elif user_choice == "/" or user_choice == "division":
+    user_choice = "/"
+
   # Compare choices
   if user_choice == "*":
-    print("chosen times")
     num_1 = random.randint(1,12)
     num_2 = random.randint(1,12)
+    # generating the question
+    print("What is... ")
+    question = "{} {} {}  ".format( num_1, user_choice, num_2  )
+    print(question)
+    # user's answer 
+    result  = int_check("Answer: ", exit_code="xxx") 
 
-  if user_choice == "//":
+  if user_choice == "/":
     num_1 = random.randint(1,60) 
     num_2 = random.randint(1,5)
+    # generating the question
+    print("What is... ")
+    question = "{} {} {}  ".format( num_1, user_choice, num_2  )
+    print(question)
+    # user's answer 
+    result  = int_check("Answer: ", exit_code="xxx") 
     
   if user_choice == "+" or user_choice =="-": 
     num_1 = random.randint(1,20)
     num_2 = random.randint(1,20)
+    # generating the question
+    print("What is... ")
+    question = "{} {} {}  ".format( num_1, user_choice, num_2  )
+    print(question)
+    # user's answer 
+    result  = int_check("Answer: ", exit_code="xxx") 
 
-  # generating the question
-  print("What is... ")
-  question = "{} {} {}  ".format( num_1, user_choice, num_2  )
-  print(question)
-  # user's answer 
-  result  = int_check("Answer: ", exit_code="xxx") 
+
+
   # If exit_code is typed in this should break the loop
   if result == "xxx": 
     keep_going = "no"
