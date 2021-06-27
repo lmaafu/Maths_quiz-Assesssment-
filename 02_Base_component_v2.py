@@ -140,6 +140,19 @@ game_summary = []
 # list of maths operation the user can use 
 maths_list = ["addition", "+", "multiplication", "*", "subtraction", "-",  "division", "/",  "xxx"]
 
+# Ask user choice and check it's valid
+user_choice = choice_checker("Choose addition / division / subtraction /multiplication (+, / , -, *): ", maths_list, "Please choose from addition / division / subtraction /multiplication (or xxx to quit)")
+
+# choices for the user 
+if user_choice == "+" or user_choice == "addition":
+  user_choice = "+"
+elif user_choice == "-" or user_choice == "subtraction":
+  user_choice = "-"
+elif user_choice == "*" or user_choice == "multiplication":
+  user_choice = "*"
+elif user_choice == "/" or user_choice == "division":
+  user_choice = "/"
+
 
 # Game History
 game_summary = [] 
@@ -187,62 +200,37 @@ while keep_going == "yes":
 
     rounds_played += 1
 
-  # Ask user choice and check it's valid
-  user_choice = choice_checker("Choose addition / division / subtraction /multiplication (+, / , -, *): ", maths_list, "Please choose from addition / division / subtraction /multiplication (or xxx to quit)")
-
-  # choices for the user 
-  if user_choice == "+" or user_choice == "addition":
-    user_choice = "+"
-  elif user_choice == "-" or user_choice == "subtraction":
-    user_choice = "-"
-  elif user_choice == "*" or user_choice == "multiplication":
-    user_choice = "*"
-  elif user_choice == "/" or user_choice == "division":
-    user_choice = "/"
-
   # Compare choices
+  # If user choose multiplication 
   if user_choice == "*":
     num_1 = random.randint(1,12)
     num_2 = random.randint(1,12)
-    # generating the question
-    print("What is... ")
-    question = "{} {} {}  ".format( num_1, user_choice, num_2  )
-    print(question)
-    # user's answer 
-    result  = int_check("Answer: ", exit_code="xxx") 
-
+   # If user choose division  
   if user_choice == "/":
-    num_1 = random.randint(1,60) 
-    num_2 = random.randint(1,5)
-    # generating the question
-    print("What is... ")
-    question = "{} {} {}  ".format( num_1, user_choice, num_2  )
-    print(question)
-    # user's answer 
-    result  = int_check("Answer: ", exit_code="xxx") 
-    
+    num_2 = random.randint(1,12) 
+    num_3 = random.randint(1,12)
+    num_1 = num_2 * num_3  
+  # If user choose addition and subtrction  
   if user_choice == "+" or user_choice =="-": 
-    num_1 = random.randint(1,20)
-    num_2 = random.randint(1,20)
-    # generating the question
-    print("What is... ")
-    question = "{} {} {}  ".format( num_1, user_choice, num_2  )
-    print(question)
-    # user's answer 
-    result  = int_check("Answer: ", exit_code="xxx") 
+    num_1 = random.randint(1,30)
+    num_2 = random.randint(1,30)
+  # generating the question
+  print("What is... ")
+  question = "{} {} {}  ".format( num_1, user_choice, num_2  )
+  print(question)
+  # user's answer 
+  result  = int_check("Answer: ", exit_code="xxx") 
 
-
+  # the actual answer for each question
+  answer  = eval(question)
 
   # If exit_code is typed in this should break the loop
   if result == "xxx": 
     keep_going = "no"
     break 
-  # the actual answer for each question
-  answer  = eval(question)
-
-  # Checks if the answer that the answer gave was either correct or incorrect 
+  # Checks if the answer that the user  gave was either correct or incorrect 
   if result != answer:
-      feedback = "INCORRECT, The correct answer was {}".format(answer)
+      feedback = "INCORRECT (The correct answer was {})".format(answer)
       rounds_lost += 1
       print(feedback)
   
@@ -253,7 +241,7 @@ while keep_going == "yes":
       print(feedback)
 
   # End Game statement_generator
-  round_result = "Question {}: {}= {}  ({}) ".format(rounds_played, question, result,  feedback)
+  round_result = "Question {} = ( {}= {} ): {}  ".format(rounds_played, question, result,  feedback)
   game_summary.append(round_result)
 
 # Overall results 
@@ -267,7 +255,7 @@ percent_lose = rounds_lost / rounds_played * 100
 
 # Game History
 print()
-print("***** Gmae History *******")
+print("***** Game History *******")
 for game in game_summary:
   print(game)
   print()
