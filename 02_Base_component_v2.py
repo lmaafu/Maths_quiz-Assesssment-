@@ -127,15 +127,13 @@ def int_check(question, low=None, high=None, exit_code=None):
 
 # Main routine ...
 
-# If the user wants to see instrutions of hoe tyo play the game 
+# If the user wants to see instrutions for the game 
 played_before = yes_no("Would like to display instructions? ")
 
 if played_before == "yes":
     instructions()
 print()
 
-# Game History
-game_summary = [] 
 
 # list of maths operation the user can use 
 maths_list = ["addition", "+", "multiplication", "*", "subtraction", "-",  "division", "/",  "xxx"]
@@ -152,7 +150,6 @@ elif user_choice == "*" or user_choice == "multiplication":
   user_choice = "*"
 elif user_choice == "/" or user_choice == "division":
   user_choice = "/"
-
 
 # Game History
 game_summary = [] 
@@ -201,6 +198,7 @@ while keep_going == "yes":
     rounds_played += 1
 
   # Compare choices
+  
   # If user choose multiplication 
   if user_choice == "*":
     num_1 = random.randint(1,12)
