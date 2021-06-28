@@ -5,39 +5,23 @@ import random
 # This gives the user valid responses and also has an error statement if the user doesnt use it correctly 
 def choice_checker(question, valid_list, error):
 
-  # Ask user for choice (and put choice in lower case)
-  response = input(question).lower()
+  valid = False
+  while not valid: 
+    # Ask user for choice (and put choice in lower case)
+    response = input(question).lower()
 
-  # iterstes through list and if resonse is an item
-  # in the list (or the first leter of an item), the 
-  # full item name is returned
+    # iterstes through list and if resonse is an item
+    # in the list (or the first leter of an item), the 
+    # full item name is returned
 
-  for item in valid_list:
-      if response == item[0] or response == item:
-          return item
+    for item in valid_list:
+        if response == item[0] or response == item:
+            return item
 
-  # output error if item not in list 
-  print(error)
-  print()
-  
-# This checks if the user answered the question with yes or no 
-def yes_no(question):
-    valid = False
-    while not valid:
-        response = input(question).lower()
-        if response == "yes" or response == "y":
-            response = "yes"
-            return response
+    # output error if item not in list 
+    print(error)
+    print()
 
-        elif response == "no" or response == "n":
-            response = "no"
-            return response
-
-        else:
-            print("!!!!PLEASE ANSWER YES OR NO!!!!")
-            print()
-
-    
 
 # Instructions for the user 
 def instructions ():
@@ -127,16 +111,16 @@ def int_check(question, low=None, high=None, exit_code=None):
 
 # Main routine ...
 
+# list of valid responses 
+maths_list = ["addition", "+", "multiplication", "*", "subtraction", "-",  "division", "/",  "xxx"]
+yes_no_list = ["yes", "no"]
 # If the user wants to see instrutions for the game 
-played_before = yes_no("Would like to display instructions? ")
+played_before = choice_checker("Would like to display instructions? " , yes_no_list, "!!!!PLEASE ANSWER YES OR NO!!!!")
 
 if played_before == "yes":
-    instructions()
-print()
+  instructions()
+  print()
 
-
-# list of maths operation the user can use 
-maths_list = ["addition", "+", "multiplication", "*", "subtraction", "-",  "division", "/",  "xxx"]
 
 # Ask user choice and check it's valid
 user_choice = choice_checker("Choose addition / division / subtraction /multiplication (+, / , -, *): ", maths_list, "Please choose from addition / division / subtraction /multiplication (or xxx to quit)")
